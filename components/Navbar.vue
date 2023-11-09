@@ -159,6 +159,8 @@ const getBalances = async () => {
   nosBalance.value = await nosana.value.jobs.getNosBalance(
     wallet.value?.publicKey as PublicKey,
   );
+  console.log('nosBalance.value', nosBalance.value);
+  console.log('nosana.value', nosana.value);
   nosPrice.value = await nosana.value.solana.getNosPrice();
 };
 watch(wallet, () => {

@@ -27,7 +27,6 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@nosana/sdk": "^0.2.26",
     "@project-serum/anchor": "^0.26.0",
     "@solana/spl-token": "^0.3.8",
     "@solana/web3.js": "^1.78.4",
@@ -35,6 +34,7 @@
     "@vueuse/core": "^10.4.1",
     "@wasmer/wasi": "^1.2.2",
     "bs58": "^5.0.0",
-    "bulma": "^0.9.4"
+    "bulma": "^0.9.4",
+    "vue-audio-tapir": "^1.5.0"
   }
 }

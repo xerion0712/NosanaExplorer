@@ -8,5 +8,10 @@
     "id": "whisper",
     "name": "Whisper",
     "icon": "server"
+  },
+  "docker": {
+    "id": "docker",
+    "name": "Docker",
+    "icon": "server"
   }
 }

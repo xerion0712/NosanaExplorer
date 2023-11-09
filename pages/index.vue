@@ -63,7 +63,7 @@
           <h1 class="title mb-5 is-2 has-text-centered">Create Job</h1>
           <p
             v-if="selectedJobType"
-            class="is-size-7 mb-2 pt-5 has-text-weight-semibold"
+            class="is-size-7 mb-2 pt-5 has-text-weight-semibold is-flex"
           >
             Selected job type
             <img
@@ -71,11 +71,22 @@
               style="margin-bottom: -3px"
               src="~assets/img/icons/feather.svg"
             />
-            {{ selectedJobType }}
+            {{ selectedJobType.name }}
           </p>
           <div class="box px-6">
             <div v-if="keypair" class="py-5">
-              Create job here: {{ selectedJobType }}
+              <JobTypeCowsay
+                v-if="selectedJobType.id === 'cowsay'"
+                @submit-job="submitJob"
+              ></JobTypeCowsay>
+              <JobTypeWhisper
+                v-if="selectedJobType.id === 'whisper'"
+                @submit-job="submitJob"
+              ></JobTypeWhisper>
+              <JobTypeDocker
+                v-if="selectedJobType.id === 'docker'"
+                @submit-job="submitJob"
+              ></JobTypeDocker>
             </div>
           </div>
         </div>
@@ -86,14 +97,12 @@
 </template>
 
 <script setup lang="ts">
-import { PublicKey, Keypair } from '@solana/web3.js';
+import { Keypair, PublicKey } from '@solana/web3.js';
 import bs58 from 'bs58';
-import { Job } from '@nosana/sdk';
 import jobTypesJson from '@/public/job-types.json';
 
 const { nosana, setWallet, secretKey } = useSDK();
 const loading = ref(false);
-const jobTypes: Ref<any | undefined> = ref(undefined);
 const markets: Ref<any | undefined> = ref(undefined);
 const error: Ref<any> = ref(null);
 const keypair: Ref<Keypair | undefined> = ref(undefined);
@@ -140,8 +149,7 @@ const login = async (key: any) => {
       if (typeof key === 'string') {
         key = bs58.decode(key);
       }
-      // eslint-disable-next-line new-cap
-      keypair.value = new (Keypair as any).fromSecretKey(key);
+      keypair.value = Keypair.fromSecretKey(key);
     }
     setWallet(keypair.value as Keypair);
     showKeypairPopup.value = false;
@@ -168,6 +176,14 @@ const selectJobType = (type: any) => {
 if (secretKey.value !== null && secretKey.value.length > 0) {
   login(secretKey.value);
 }
+
+const submitJob = async (ipfsHash: string) => {
+  const response = await nosana.value.jobs.list(
+    ipfsHash,
+    // new PublicKey(selectedJobType.market),
+  );
+  console.log('response', response);
+};
 </script>
 <style lang="scss" scoped>
 .work-wrapper {

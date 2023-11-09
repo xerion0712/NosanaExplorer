@@ -8,6 +8,7 @@ const config = useRuntimeConfig();
 export function setWallet(keypair: Keypair): void {
   wallet.value = keypair;
   secretKey.value = bs58.encode(keypair.secretKey);
+  console.log('setWallet!', keypair.publicKey.toString());
 }
 
 const nosana = computed(() => {
