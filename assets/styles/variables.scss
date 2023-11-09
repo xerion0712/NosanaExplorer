@@ -1,0 +1,31 @@
+/* Import Bulma Utilities */
+@import 'bulma/sass/utilities/initial-variables';
+@import 'bulma/sass/utilities/functions';
+
+$family-sans-serif: 'Lexend', sans-serif;
+$family-monospace: 'Space Mono', monospace;
+
+// Colors
+$primary: #212121;
+$secondary: #93FC39;
+$secondary-alt: #2feb2b;
+$text: $primary;
+$text-grey: rgba(112, 112, 112, 1);
+
+$link: $secondary;
+$link-hover: lighten($primary, 20%);
+$link-focus: lighten($primary, 20%);
+$link-active: lighten($primary, 20%);
+$border-radius: 12px;
+
+$navbar-height: 5rem;
+$box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.15), 0 0 0 1px rgba(10,10,10,.025);
+$box-radius: 12px;
+
+$input-icon-active-color: $primary;
+
+@import 'bulma/sass/utilities/mixins';
+
+$table-row-hover-background-color: lighten($primary, 40%);
+$table-striped-row-even-hover-background-color: lighten($primary, 40%);
+$table-cell-padding: 15px 20px;

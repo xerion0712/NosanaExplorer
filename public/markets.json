@@ -1,0 +1,31 @@
+{
+  "4m2e2nGvem6MorWEzTHqNWsjpweRxWoAfU2u78TdBgGv": {
+    "name": "Macbook",
+    "icon": "laptop"
+  },
+  "5GYs8NuDFJeXdUR3Lpq14ezjubepaCFeP2qBiKfCNrqM": {
+    "name": "Docker",
+    "icon": "server"
+  },
+  "7nxXoihx65yRGZiGzWZsFMz8D7qwxFePNKvDBWZnxc41": {
+    "name": "NVIDIA GPU",
+    "icon": "gpu"
+  },
+  "3eBkCKxvnyBrhiaSxRjFB1dtgrTbi7vYn5HajVQthEsB": {
+    "name": "Mobile phone",
+    "icon": "mobile"
+  },
+  "2kNSniTBsLCioSr4dgdZh6S1JKQc8cZQvxrPWkEn1ERj": {
+    "name": "Breakpoint-2023",
+    "icon": "screen",
+    "skip": true
+  },
+  "Db9gUpeqYC2FCmHJMxiZX1ncoZXVEABjsaCWfbPzDdXi": {
+    "name": "Breakpoint-2023",
+    "icon": "screen"
+  },
+  "U3p4uaAMi1Am5frDP6jfjN1zbCroLer3h8zT4SEyKSx": {
+    "name": "Game console",
+    "icon": "game"
+  }
+}
