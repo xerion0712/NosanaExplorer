@@ -1,0 +1,12 @@
+{
+  "cowsay": {
+    "id": "cowsay",
+    "name": "Cowsay",
+    "icon": "laptop"
+  },
+  "whisper": {
+    "id": "whisper",
+    "name": "Whisper",
+    "icon": "server"
+  }
+}

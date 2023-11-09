@@ -4,7 +4,7 @@
       <div class="navbar-brand">
         <div class="navbar-item" to="/">
           <img class="logo" width="150" src="~assets/img/logo.svg" />
-          <span class="subtitle is-7">BROWSER NODE</span>
+          <span class="subtitle is-7">JOB CREATOR</span>
         </div>
         <a
           id="navbar-burger"

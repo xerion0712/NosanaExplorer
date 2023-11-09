@@ -5,8 +5,7 @@
         <div class="box p-6">
           <h1 class="title mb-5 is-1">Start earning</h1>
           <p class="mb-6">
-            Get started with you browser node by logging in with your private
-            key.
+            Get started with creating jobs by logging in with your private key.
           </p>
           <div class="field">
             <div class="control" style="width: 100%">

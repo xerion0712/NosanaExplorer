@@ -44,12 +44,12 @@
         </div>
         <LoginScreen v-if="!keypair && loginPath" @login="login" />
         <div
-          v-if="keypair && markets && !status && !loading"
+          v-if="keypair && jobTypesJson && !status && !loading"
           class="column is-8"
         >
-          <market-selector
-            :markets="markets"
-            @select-market="selectMarket"
+          <job-selector
+            :job-types="jobTypesJson"
+            @select-job-type="selectJobType"
             @start-in-market="status = 'READY'"
           />
         </div>
@@ -62,19 +62,21 @@
         <div>
           <h1 class="title mb-5 is-2 has-text-centered">Create Job</h1>
           <p
-            v-if="selectedMarket"
+            v-if="selectedJobType"
             class="is-size-7 mb-2 pt-5 has-text-weight-semibold"
           >
-            Selected market
+            Selected job type
             <img
               width="14"
               style="margin-bottom: -3px"
               src="~assets/img/icons/feather.svg"
             />
-            {{ marketInfo[selectedMarket.address].name }}
+            {{ selectedJobType }}
           </p>
           <div class="box px-6">
-            <div v-if="keypair" class="py-5">Create job here</div>
+            <div v-if="keypair" class="py-5">
+              Create job here: {{ selectedJobType }}
+            </div>
           </div>
         </div>
       </div>
@@ -87,18 +89,18 @@
 import { PublicKey, Keypair } from '@solana/web3.js';
 import bs58 from 'bs58';
 import { Job } from '@nosana/sdk';
-import marketsJson from '@/public/markets.json';
+import jobTypesJson from '@/public/job-types.json';
 
 const { nosana, setWallet, secretKey } = useSDK();
 const loading = ref(false);
+const jobTypes: Ref<any | undefined> = ref(undefined);
 const markets: Ref<any | undefined> = ref(undefined);
 const error: Ref<any> = ref(null);
 const keypair: Ref<Keypair | undefined> = ref(undefined);
 const fetchingRuns: Ref<boolean> = ref(false);
 const status: Ref<any> = ref(null);
-const selectedMarket: Ref<any> = ref(null);
+const selectedJobType: Ref<any> = ref(null);
 const showKeypairPopup: Ref<Boolean> = ref(false);
-const marketInfo: Ref<any> = ref(marketsJson);
 const config = useRuntimeConfig();
 const loginPath: Ref<any> = ref(null);
 
@@ -158,9 +160,9 @@ const getMarkets = async () => {
   markets.value = await nosana.value.jobs.allMarkets();
 };
 
-const selectMarket = (market: any) => {
-  selectedMarket.value = market;
-  console.log('selectedMarket.value', selectedMarket.value.address.toString());
+const selectJobType = (type: any) => {
+  selectedJobType.value = type;
+  console.log('selectedMarket.value', selectedJobType.value);
 };
 
 if (secretKey.value !== null && secretKey.value.length > 0) {
