@@ -6,7 +6,7 @@
         <textarea
           v-model="cowsayCommand"
           class="textarea"
-          placeholder="Textarea"
+          placeholder="Moo"
         ></textarea>
       </div>
     </div>

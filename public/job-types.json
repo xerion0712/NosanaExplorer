@@ -2,16 +2,19 @@
   "cowsay": {
     "id": "cowsay",
     "name": "Cowsay",
-    "icon": "laptop"
+    "icon": "laptop",
+    "market": "2kNSniTBsLCioSr4dgdZh6S1JKQc8cZQvxrPWkEn1ERj"
   },
   "whisper": {
     "id": "whisper",
     "name": "Whisper",
-    "icon": "server"
+    "icon": "server",
+    "market": "2kNSniTBsLCioSr4dgdZh6S1JKQc8cZQvxrPWkEn1ERj"
   },
   "docker": {
     "id": "docker",
     "name": "Docker",
-    "icon": "server"
+    "icon": "server",
+    "market": "7nxXoihx65yRGZiGzWZsFMz8D7qwxFePNKvDBWZnxc41"
   }
 }

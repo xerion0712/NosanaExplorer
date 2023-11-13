@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- pre work -->
     <div class="container px-3">
       <div
         class="loader mt-3"
@@ -56,7 +55,6 @@
       </div>
     </div>
 
-    <!-- work loop -->
     <div v-if="keypair && status">
       <div class="work-wrapper px-3">
         <div>
@@ -90,6 +88,11 @@
             </div>
           </div>
         </div>
+        <div v-if="success" class="notification is-success is-light">
+          <button class="delete" @click="success = null"></button>
+          Succesfully posted job<br />
+          Job: {{ success.job.toString() }}
+        </div>
       </div>
     </div>
     <KeypairModal v-if="showKeypairPopup" :keypair="keypair" @login="login" />
@@ -112,6 +115,7 @@ const selectedJobType: Ref<any> = ref(null);
 const showKeypairPopup: Ref<Boolean> = ref(false);
 const config = useRuntimeConfig();
 const loginPath: Ref<any> = ref(null);
+const success: Ref<any> = ref(null);
 
 const login = async (key: any) => {
   loading.value = true;
@@ -182,6 +186,7 @@ const submitJob = async (ipfsHash: string) => {
     ipfsHash,
     // new PublicKey(selectedJobType.market),
   );
+  success.value = response;
   console.log('response', response);
 };
 </script>
