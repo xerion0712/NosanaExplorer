@@ -24,7 +24,13 @@
     </div>
     <div class="field">
       <p class="control">
-        <button class="button is-secondary" @click="submitJob">Submit</button>
+        <button
+          class="button is-secondary"
+          :class="{ 'is-disabled': loading }"
+          @click="submitJob"
+        >
+          Submit
+        </button>
       </p>
     </div>
   </div>
@@ -35,27 +41,33 @@ const command: Ref<String | null> = ref(null);
 const image: Ref<String | null> = ref(null);
 const { nosana } = useSDK();
 const emit = defineEmits(['submit-job']);
+const props = defineProps({
+  loading: {
+    type: Boolean,
+    default: true,
+  },
+});
 
 const submitJob = async () => {
-  const jsonFlow = {
-    state: {
-      'nosana/type': 'docker',
-      'nosana/trigger': 'cli',
-    },
-    ops: [
-      {
-        op: 'container/run',
-        id: 'run-from-job-creator',
-        args: {
-          cmds: [{ cmd: command.value }],
-          image: image.value || 'ubuntu',
-        },
+  if (!props.loading) {
+    const jsonFlow = {
+      state: {
+        'nosana/type': 'docker',
+        'nosana/trigger': 'cli',
       },
-    ],
-  };
-  const ipfsHash = await nosana.value.ipfs.pin(jsonFlow);
-  console.log(`ipfs uploaded:\t${nosana.value.ipfs.config.gateway + ipfsHash}`);
-  emit('submit-job', ipfsHash);
+      ops: [
+        {
+          op: 'container/run',
+          id: 'run-from-job-creator',
+          args: {
+            cmds: [{ cmd: command.value }],
+            image: image.value || 'ubuntu',
+          },
+        },
+      ],
+    };
+    emit('submit-job', jsonFlow);
+  }
 };
 </script>
 <style scoped lang="scss"></style>

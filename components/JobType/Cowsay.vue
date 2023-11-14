@@ -12,7 +12,13 @@
     </div>
     <div class="field">
       <p class="control">
-        <button class="button is-secondary" @click="submitJob">Submit</button>
+        <button
+          class="button is-secondary"
+          :class="{ 'is-disabled': loading }"
+          @click="submitJob"
+        >
+          Submit
+        </button>
       </p>
     </div>
   </div>
@@ -24,29 +30,37 @@ const cowsayCommand: Ref<string | undefined> = ref(undefined);
 const { nosana } = useSDK();
 const emit = defineEmits(['submit-job']);
 
-const submitJob = async () => {
-  const command = 'cowsay ' + cowsayCommand.value;
-  const wasmUrl = await getWAPMUrlForCommandName('cowsay');
+const props = defineProps({
+  loading: {
+    type: Boolean,
+    default: true,
+  },
+});
 
-  const jsonFlow = {
-    state: {
-      'nosana/type': 'wasm',
-      'nosana/trigger': 'cli',
-    },
-    ops: [
-      {
-        op: 'wasm/run',
-        id: 'run-from-cli',
-        args: {
-          cmds: [{ cmd: command }],
-          wasm: wasmUrl,
-        },
+const submitJob = async () => {
+  console.log('submit');
+  if (!props.loading) {
+    const command = 'cowsay ' + cowsayCommand.value;
+    const wasmUrl = await getWAPMUrlForCommandName('cowsay');
+
+    const jsonFlow = {
+      state: {
+        'nosana/type': 'wasm',
+        'nosana/trigger': 'cli',
       },
-    ],
-  };
-  const ipfsHash = await nosana.value.ipfs.pin(jsonFlow);
-  console.log(`ipfs uploaded:\t${nosana.value.ipfs.config.gateway + ipfsHash}`);
-  emit('submit-job', ipfsHash);
+      ops: [
+        {
+          op: 'wasm/run',
+          id: 'run-from-cli',
+          args: {
+            cmds: [{ cmd: command }],
+            wasm: wasmUrl,
+          },
+        },
+      ],
+    };
+    emit('submit-job', jsonFlow);
+  }
 };
 </script>
 <style scoped lang="scss"></style>

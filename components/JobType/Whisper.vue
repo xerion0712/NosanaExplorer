@@ -53,9 +53,7 @@ const creatJob = async (data: any) => {
       },
     ],
   };
-  const ipfsHash = await nosana.value.ipfs.pin(jsonFlow);
-  console.log(`ipfs uploaded:\t${nosana.value.ipfs.config.gateway + ipfsHash}`);
-  emit('submit-job', ipfsHash);
+  emit('submit-job', jsonFlow);
 };
 </script>
 <style scoped lang="scss"></style>

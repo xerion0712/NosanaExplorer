@@ -78,17 +78,21 @@
             {{ selectedJobType.name }}
           </p>
           <div class="box px-6">
+            {{ loading }}
             <div v-if="keypair" class="py-5">
               <JobTypeCowsay
                 v-if="selectedJobType.id === 'cowsay'"
+                :loading="loading"
                 @submit-job="submitJob"
               ></JobTypeCowsay>
               <JobTypeWhisper
                 v-if="selectedJobType.id === 'whisper'"
+                :loading="loading"
                 @submit-job="submitJob"
               ></JobTypeWhisper>
               <JobTypeDocker
                 v-if="selectedJobType.id === 'docker'"
+                :loading="loading"
                 @submit-job="submitJob"
               ></JobTypeDocker>
             </div>
@@ -100,13 +104,13 @@
             You can follow it's status & results in our
             <a
               target="_blank"
-              :href="`https://explorer.nosana.io/jobs/${success.job.toString()}?network=devnet/`"
+              :href="`https://explorer.nosana.io/jobs/${success.job.toString()}`"
               >explorer.</a
             ><br />
             Job:
             <a
               target="_blank"
-              :href="`https://explorer.nosana.io/jobs/${success.job.toString()}?network=devnet/`"
+              :href="`https://explorer.nosana.io/jobs/${success.job.toString()}`"
               >{{ success.job.toString() }}</a
             >
           </div>
@@ -205,15 +209,25 @@ if (secretKey.value !== null && secretKey.value.length > 0) {
   login(secretKey.value);
 }
 
-const submitJob = async (ipfsHash: string) => {
-  console.log('selectedJobType.value.market', selectedJobType.value.market);
-  const response = await nosana.value.jobs.list(
-    ipfsHash,
-    new PublicKey(selectedJobType.value.market),
-  );
-  status.value = 'RUNNING';
-  success.value = response;
-  console.log('response', response);
+const submitJob = async (jsonFlow: any) => {
+  loading.value = true;
+  try {
+    const ipfsHash = await nosana.value.ipfs.pin(jsonFlow);
+    console.log(
+      `ipfs uploaded:\t${nosana.value.ipfs.config.gateway + ipfsHash}`,
+    );
+
+    const response = await nosana.value.jobs.list(
+      ipfsHash,
+      new PublicKey(selectedJobType.value.market),
+    );
+    status.value = 'RUNNING';
+    success.value = response;
+    console.log('response', response);
+  } catch (e) {
+    error.value = e.message;
+  }
+  loading.value = false;
 };
 </script>
 <style lang="scss" scoped>
