@@ -59,6 +59,12 @@
       <div class="work-wrapper px-3">
         <div>
           <h1 class="title mb-5 is-2 has-text-centered">Create Job</h1>
+          <span
+            v-if="selectedJobType"
+            class="has-text-primary"
+            @click="(selectedJobType = null), (status = null)"
+            >&lt; Back</span
+          >
           <p
             v-if="selectedJobType"
             class="is-size-7 mb-2 pt-5 has-text-weight-semibold is-flex"

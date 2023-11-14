@@ -1,12 +1,24 @@
 <template>
   <div>
     <div class="field">
-      <label class="label">What does the cow say?</label>
+      <div class="field">
+        <label class="label">Docker image</label>
+        <div class="control">
+          <input
+            v-model="image"
+            class="input"
+            type="text"
+            placeholder="Default: ubuntu"
+          />
+        </div>
+      </div>
+      <label class="label">Command</label>
+      <span>todo make nice command input</span>
       <div class="control">
         <textarea
-          v-model="cowsayCommand"
+          v-model="command"
           class="textarea"
-          placeholder="Textarea"
+          placeholder="echo Hello World!"
         ></textarea>
       </div>
     </div>
@@ -19,27 +31,24 @@
 </template>
 
 <script setup lang="ts">
-import getWAPMUrlForCommandName from '../../services/wapm.js';
-const cowsayCommand: Ref<String | null> = ref(null);
+const command: Ref<String | null> = ref(null);
+const image: Ref<String | null> = ref(null);
 const { nosana } = useSDK();
 const emit = defineEmits(['submit-job']);
 
 const submitJob = async () => {
-  const command = 'cowsay ' + cowsayCommand.value;
-  const wasmUrl = await getWAPMUrlForCommandName('cowsay');
-
   const jsonFlow = {
     state: {
-      'nosana/type': 'wasm',
+      'nosana/type': 'docker',
       'nosana/trigger': 'cli',
     },
     ops: [
       {
-        op: 'wasm/run',
-        id: 'run-from-cli',
+        op: 'container/run',
+        id: 'run-from-job-creator',
         args: {
-          cmds: [{ cmd: command }],
-          wasm: wasmUrl,
+          cmds: [{ cmd: command.value }],
+          image: image.value || 'ubuntu',
         },
       },
     ],
