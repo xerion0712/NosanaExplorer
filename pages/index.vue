@@ -57,7 +57,7 @@
 
     <div v-if="keypair && status">
       <div class="work-wrapper px-3">
-        <div>
+        <div v-if="!success">
           <h1 class="title mb-5 is-2 has-text-centered">Create Job</h1>
           <span
             v-if="selectedJobType"
@@ -94,10 +94,28 @@
             </div>
           </div>
         </div>
-        <div v-if="success" class="notification is-success is-light">
-          <button class="delete" @click="success = null"></button>
-          Succesfully posted job<br />
-          Job: {{ success.job.toString() }}
+        <div v-else>
+          <div v-if="success" class="notification is-success is-light">
+            Succesfully posted job<br />
+            You can follow it's status & results in our
+            <a
+              target="_blank"
+              :href="`https://explorer.nosana.io/jobs/${success.job.toString()}?network=devnet/`"
+              >explorer.</a
+            ><br />
+            Job:
+            <a
+              target="_blank"
+              :href="`https://explorer.nosana.io/jobs/${success.job.toString()}?network=devnet/`"
+              >{{ success.job.toString() }}</a
+            >
+          </div>
+          <button
+            class="button is-primary"
+            @click="(selectedJobType = null), (status = null), (success = null)"
+          >
+            Back
+          </button>
         </div>
       </div>
     </div>
@@ -188,10 +206,12 @@ if (secretKey.value !== null && secretKey.value.length > 0) {
 }
 
 const submitJob = async (ipfsHash: string) => {
+  console.log('selectedJobType.value.market', selectedJobType.value.market);
   const response = await nosana.value.jobs.list(
     ipfsHash,
-    // new PublicKey(selectedJobType.market),
+    new PublicKey(selectedJobType.value.market),
   );
+  status.value = 'RUNNING';
   success.value = response;
   console.log('response', response);
 };

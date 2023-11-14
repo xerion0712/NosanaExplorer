@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import getWAPMUrlForCommandName from '../../services/wapm.js';
-const cowsayCommand: Ref<String | null> = ref(null);
+const cowsayCommand: Ref<string | undefined> = ref(undefined);
 const { nosana } = useSDK();
 const emit = defineEmits(['submit-job']);
 
