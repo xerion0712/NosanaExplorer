@@ -1,8 +1,8 @@
-# Nuxt 3 Minimal Starter
+### **Nosana Explorer Nuxt 3 Minimal Starter**
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Look at the **Nuxt 3 documentation** to learn more.
 
-## Setup
+### **Setup**
 
 Make sure to install the dependencies:
 
@@ -17,9 +17,9 @@ pnpm install
 yarn install
 ```
 
-## Development Server
+### **Development Server**
 
-Start the development server on `http://localhost:3000`:
+Start the development server on [http://localhost:3000](http://localhost:3000):
 
 ```bash
 # npm
@@ -32,7 +32,7 @@ pnpm run dev
 yarn dev
 ```
 
-## Production
+### **Production**
 
 Build the application for production:
 
@@ -47,7 +47,7 @@ pnpm run build
 yarn build
 ```
 
-Locally preview production build:
+Locally preview the production build:
 
 ```bash
 # npm
@@ -60,4 +60,4 @@ pnpm run preview
 yarn preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Check out the **deployment documentation** for more information.
